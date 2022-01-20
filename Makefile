@@ -12,7 +12,7 @@ PROJECT_NAME=zookeeper-operator
 EXPORTER_NAME=zookeeper-exporter
 APP_NAME=zookeeper
 KUBE_VERSION=1.20.13
-REPO=pravega/$(PROJECT_NAME)
+REPO=yunir/$(PROJECT_NAME)
 TEST_REPO=testzkop/$(PROJECT_NAME)
 APP_REPO=pravega/$(APP_NAME)
 ALTREPO=emccorp/$(PROJECT_NAME)
@@ -47,6 +47,12 @@ build-go:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
 		-ldflags "-X github.com/$(REPO)/pkg/version.Version=$(VERSION) -X github.com/$(REPO)/pkg/version.GitSHA=$(GIT_SHA)" \
 		-o bin/$(EXPORTER_NAME)-linux-amd64 cmd/exporter/main.go
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build \
+		-ldflags "-X github.com/$(REPO)/pkg/version.Version=$(VERSION) -X github.com/$(REPO)/pkg/version.GitSHA=$(GIT_SHA)" \
+		-o bin/$(PROJECT_NAME)-linux-arm64 cmd/manager/main.go
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build \
+		-ldflags "-X github.com/$(REPO)/pkg/version.Version=$(VERSION) -X github.com/$(REPO)/pkg/version.GitSHA=$(GIT_SHA)" \
+		-o bin/$(EXPORTER_NAME)-linux-arm64 cmd/exporter/main.go
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build \
 		-ldflags "-X github.com/$(REPO)/pkg/version.Version=$(VERSION) -X github.com/$(REPO)/pkg/version.GitSHA=$(GIT_SHA)" \
 		-o bin/$(PROJECT_NAME)-darwin-amd64 cmd/manager/main.go

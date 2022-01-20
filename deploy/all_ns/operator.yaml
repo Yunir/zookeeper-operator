@@ -16,13 +16,12 @@ spec:
       containers:
         - name: zookeeper-operator
           # Replace this with the built image name
-          image: pravega/zookeeper-operator:0.2.13
+          image: yunir/zookeeper-operator:0.2.13-12-dirty
           ports:
           - containerPort: 60000
             name: metrics
           command:
           - zookeeper-operator
-          imagePullPolicy: Always
           env:
           - name: WATCH_NAMESPACE
             value: ""
